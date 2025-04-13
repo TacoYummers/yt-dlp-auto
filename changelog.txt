@@ -29,3 +29,4 @@ V1.0.0 (Public launch):
 - Removed some random timeouts and cls lines
 - Removed copying required files and removed hide attributes
 - Fixed mentions of new paths
+- Removed phantomjs
