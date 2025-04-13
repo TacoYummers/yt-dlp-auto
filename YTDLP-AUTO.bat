@@ -14,16 +14,13 @@ if exist "%SETTINGS_DIR%/warningskip.txt" goto MENU
 
 
 echo PLEASE BE MINDFUL THAT VIDEOS   ** MIGHT **   USE AV1
-echo WHICH WINDOWS NEW MEDIA PLAYER....
-echo DOES... NOT... SUPPORT...
+echo WHICH WINDOWS NEW MEDIA PLAYER DOES NOT SUPPORT.
 echo.
 echo.
-echo GET VLC PLAYER OR
-echo GET THE AV1 EXTENSION
-echo ON MICROSOFT STORE INSTEAD
+echo GET VLC PLAYER OR GET THE AV1 EXTENSION ON MICROSOFT STORE INSTEAD!
 echo.
 echo.
-pause
+timeout /t 10
 echo a > "%SETTINGS_DIR%/warningskip.txt"
 goto MENU
 
@@ -83,12 +80,7 @@ goto MENU
 
 :DOWNLOAD_PLAYLIST
 cls
-echo Enter a name for this playlist since this tool
-echo is not built to extract playlist names...
-echo.
-set /p PL_TITLE=Playlist Name: 
-cls
-"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --yes-playlist --audio-multistreams --video-multistreams -f "bestvideo+bestaudio/best" --merge-output-format mp4 -o "%SAVE_PATH%\playlists\%PL_TITLE%\%%(title)s [%%(id)s].mp4" "%URL%" || (
+"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --yes-playlist --audio-multistreams --video-multistreams -f "bestvideo+bestaudio/best" --merge-output-format mp4 -o "%SAVE_PATH%\playlists\%%(playlist_title)s [%%(playlist_id)s]\%%(title)s [%%(id)s].mp4" "%URL%" || (
     echo Download failed! Please check the URL or internet connection.
     pause
     goto MENU
@@ -98,7 +90,7 @@ echo Playlist Downloaded Successfully!
 echo Thanks for using YTDLPAUTO by Taco_PC!
 echo Press any key or wait 3 seconds to open the location of your playlist!
 timeout /t 3 > nul
-start "" "%SAVE_PATH%\playlists\%PL_TITLE%"
+start "" "%SAVE_PATH%\playlists"
 goto MENU
 
 
@@ -122,12 +114,7 @@ goto MENU
 
 :DOWNLOAD_PLAYLIST_AUDIO
 cls
-echo Enter a name for this playlist since this tool
-echo is not built to extract playlist names...
-echo.
-set /p PL_TITLE=Playlist Name: 
-cls
-"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --yes-playlist --audio-multistreams --audio-quality 2 -f "bestaudio/best" --extract-audio --audio-format vorbis -o "%SAVE_PATH%\playlists_audio\%PL_TITLE%\%%(title)s [%%(id)s]" "%URL%" || (
+"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --yes-playlist --audio-multistreams --audio-quality 2 -f "bestaudio/best" --extract-audio --audio-format vorbis -o "%SAVE_PATH%\playlists_audio\%%(playlist_title)s [%%(playlist_id)s]\%%(title)s [%%(id)s]" "%URL%" || (
     echo Download failed! Please check the URL or internet connection.
     pause
     goto MENU
@@ -136,7 +123,7 @@ echo Playlist Audio Downloaded Successfully!
 echo Thanks for using YTDLPAUTO by Taco_PC!
 echo Press any key or wait 3 seconds to open the location of your playlist audio(s)!
 timeout /t 3 > nul
-start "" "%SAVE_PATH%\playlists_audio\%PL_TITLE%"
+start "" "%SAVE_PATH%\playlists_audio"
 goto MENU
 
 
@@ -168,10 +155,7 @@ goto MENU
 
 :DOWNLOAD_PLAYLIST_BOTH
 cls
-echo Enter a name for this playlist:
-set /p PL_TITLE=Playlist Name: 
-cls
-"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --yes-playlist --audio-multistreams --video-multistreams -f "bestvideo+bestaudio/best" --merge-output-format mp4 -o "%SAVE_PATH%\playlists_both\%PL_TITLE%\%%(title)s [%%(id)s].mp4" "%URL%" || (
+"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --yes-playlist --audio-multistreams --video-multistreams -f "bestvideo+bestaudio/best" --merge-output-format mp4 -o "%SAVE_PATH%\playlists_both\%%(playlist_title)s [%%(playlist_id)s]\%%(title)s [%%(id)s].mp4" "%URL%" || (
     echo Download failed! Please check the URL or internet connection.
     pause
     goto MENU
@@ -186,5 +170,5 @@ echo Playlist Video and Audio Downloaded Successfully!
 echo Thanks for using YTDLPAUTO by Taco_PC!
 echo Press any key or wait 3 seconds to open the location of your playlist videos and audio(s)!
 timeout /t 3 > nul
-start "" "%SAVE_PATH%\playlists_both\%PL_TITLE%"
+start "" "%SAVE_PATH%\playlists_both"
 goto MENU
