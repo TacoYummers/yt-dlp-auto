@@ -31,7 +31,7 @@ goto MENU
 :MENU
 cls
 echo =========================================
-echo Welcome to YTDLP AUTO - Taco_PC - V0.1.0
+echo Welcome to YTDLP AUTO - Taco_PC - V1.0.0
 echo =========================================
 echo.
 echo Enter a YouTube link (video or a video in a playlist):
@@ -41,7 +41,7 @@ goto CHOOSE
 :CHOOSE
 cls
 echo =========================================
-echo Welcome to YTDLP AUTO - Taco_PC - V0.1.0
+echo Welcome to YTDLP AUTO - Taco_PC - V1.0.0
 echo =========================================
 echo.
 echo 1	Video		(MP4)
