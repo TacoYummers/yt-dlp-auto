@@ -1,4 +1,7 @@
 # yt-dlp-auto
+
+![ytdlpauto-icon-eawdport](https://github.com/user-attachments/assets/33a42bf0-6ba6-4410-a516-f97f59509103)
+
 yt-dlp-auto is a user-friendly tool using [yt-dlp](https://github.com/yt-dlp/yt-dlp), it is a simple batch script that donwloads MP4s and OGGs with playlist support!
 
 You don't have to download any other dependencies for the tool, they are built-in to the tool!
@@ -8,7 +11,7 @@ You don't have to download any other dependencies for the tool, they are built-i
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 - [ffmpeg](https://ffmpeg.org/)
 
-## Older changelogs for unrelaesed prototype versions
+## Older changelogs for unreleased prototype versions
 
 V0.0.2 (New naming scheme update):
 
