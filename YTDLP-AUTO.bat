@@ -28,7 +28,7 @@ goto MENU
 :MENU
 cls
 echo =========================================
-echo Welcome to YTDLP AUTO - Taco_PC - V1.0.1
+echo Welcome to YTDLP AUTO - Taco_PC - V1.0.2
 echo =========================================
 echo.
 echo Enter a YouTube link:
@@ -45,16 +45,16 @@ echo 1	Video		(MP4)
 echo 2	Playlist	(MP4)
 echo 3	Video		(OGG)
 echo 4	Playlist	(OGG)
-echo 5	Video		(MP4 + OGG)
-echo 6	Playlist	(MP4 + OGG)
+echo 5	Video		(MP3)
+echo 6	Playlist	(MP3)
 echo.
 set /p CHOICE=Enter your choice (1-6): 
 if "%CHOICE%"=="1" goto DOWNLOAD_VIDEO
 if "%CHOICE%"=="2" goto DOWNLOAD_PLAYLIST
-if "%CHOICE%"=="3" goto DOWNLOAD_AUDIO
-if "%CHOICE%"=="4" goto DOWNLOAD_PLAYLIST_AUDIO
-if "%CHOICE%"=="5" goto DOWNLOAD_VIDEO_BOTH
-if "%CHOICE%"=="6" goto DOWNLOAD_PLAYLIST_BOTH
+if "%CHOICE%"=="3" goto DOWNLOAD_OGG
+if "%CHOICE%"=="4" goto DOWNLOAD_PLAYLIST_OGG
+if "%CHOICE%"=="5" goto DOWNLOAD_MP3
+if "%CHOICE%"=="6" goto DOWNLOAD_PLAYLIST_MP3
 echo Invalid choice! Please enter 1-6.
 pause
 goto CHOOSE
@@ -95,7 +95,7 @@ goto MENU
 
 
 
-:DOWNLOAD_AUDIO
+:DOWNLOAD_OGG
 cls
 "required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --no-playlist --audio-multistreams --audio-quality 2 -f "bestaudio/best" --extract-audio --audio-format vorbis -o "%SAVE_PATH%\videos_audio\%%(title)s [%%(id)s]" "%URL%" || (
     echo Download failed! Please check the URL or internet connection.
@@ -112,7 +112,7 @@ goto MENU
 
 
 
-:DOWNLOAD_PLAYLIST_AUDIO
+:DOWNLOAD_PLAYLIST_OGG
 cls
 "required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --yes-playlist --audio-multistreams --audio-quality 2 -f "bestaudio/best" --extract-audio --audio-format vorbis -o "%SAVE_PATH%\playlists_audio\%%(playlist_title)s [%%(playlist_id)s]\%%(title)s [%%(id)s]" "%URL%" || (
     echo Download failed! Please check the URL or internet connection.
@@ -128,47 +128,33 @@ goto MENU
 
 
 
-:DOWNLOAD_VIDEO_BOTH
+:DOWNLOAD_MP3
 cls
-echo Getting video id...
-for /f "delims=" %%i in ('yt-dlp --get-id "%URL%"') do set "VIDEO_ID=%%i"
-cls
-"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --no-playlist --audio-multistreams --video-multistreams -f "bestvideo+bestaudio/best" --merge-output-format mp4 -o "%SAVE_PATH%\videos_both\%%(title)s [%%(id)s].mp4" "%URL%" || (
+"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --no-playlist --audio-multistreams --audio-quality 2 -f "bestaudio/best" --extract-audio --audio-format mp3 -o "%SAVE_PATH%\videos_audio\%%(title)s [%%(id)s]" "%URL%" || (
     echo Download failed! Please check the URL or internet connection.
     pause
     goto MENU
 )
-"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --no-playlist --audio-multistreams --audio-quality 2 -f "bestaudio/best" --extract-audio --audio-format vorbis -o "%SAVE_PATH%\videos_both\%%(title)s [%%(id)s]" "%URL%" || (
-    echo Audio Download failed! Please check the URL or internet connection.
-    pause
-    goto MENU
-)
 cls
-echo Video and Audio Downloaded Successfully!
+echo Audio Downloaded Successfully!
 echo Thanks for using YTDLPAUTO by Taco_PC!
-echo Press any key or wait 3 seconds to open the location of your video(s) and audio!
+echo Press any key or wait 3 seconds to open the location of your audio!
 timeout /t 3 > nul
-start "" "%SAVE_PATH%\videos_both"
+start "" "%SAVE_PATH%\videos_audio"
 goto MENU
 
 
 
-:DOWNLOAD_PLAYLIST_BOTH
+:DOWNLOAD_PLAYLIST_MP3
 cls
-"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --yes-playlist --audio-multistreams --video-multistreams -f "bestvideo+bestaudio/best" --merge-output-format mp4 -o "%SAVE_PATH%\playlists_both\%%(playlist_title)s [%%(playlist_id)s]\%%(title)s [%%(id)s].mp4" "%URL%" || (
+"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --yes-playlist --audio-multistreams --audio-quality 2 -f "bestaudio/best" --extract-audio --audio-format mp3 -o "%SAVE_PATH%\playlists_audio\%%(playlist_title)s [%%(playlist_id)s]\%%(title)s [%%(id)s]" "%URL%" || (
     echo Download failed! Please check the URL or internet connection.
     pause
     goto MENU
 )
-"required/yt-dlp" --no-post-overwrites --no-overwrites --no-abort-on-error --yes-playlist --audio-multistreams --audio-quality 2 -f "bestaudio/best" --extract-audio --audio-format vorbis -o "%SAVE_PATH%\playlists_both\%PL_TITLE%\%%(title)s [%%(id)s]" "%URL%" || (
-    echo Audio Download failed! Please check the URL or internet connection.
-    pause
-    goto MENU
-)
-cls
-echo Playlist Video and Audio Downloaded Successfully!
+echo Playlist Audio Downloaded Successfully!
 echo Thanks for using YTDLPAUTO by Taco_PC!
-echo Press any key or wait 3 seconds to open the location of your playlist videos and audio(s)!
+echo Press any key or wait 3 seconds to open the location of your playlist audio(s)!
 timeout /t 3 > nul
-start "" "%SAVE_PATH%\playlists_both"
+start "" "%SAVE_PATH%\playlists_audio"
 goto MENU
